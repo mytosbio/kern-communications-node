@@ -11,16 +11,16 @@ Node driver for Sensirion HDLC devices. This package is largely modeled after
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Sensirion HDLC Node](#sensirion-hdlc-node)
-  - [Documentation](#documentation)
-  - [Limitations](#limitations)
-  - [Usage](#usage)
-    - [Installation](#installation)
-    - [Working example](#working-example)
-  - [Development](#development)
-    - [Running tests](#running-tests)
-    - [Building documentation](#building-documentation)
-  - [License](#license)
+
+- [Documentation](#documentation)
+- [Limitations](#limitations)
+- [Usage](#usage)
+  - [Installation](#installation)
+  - [Working example](#working-example)
+- [Development](#development)
+  - [Running tests](#running-tests)
+  - [Building documentation](#building-documentation)
+- [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -48,49 +48,16 @@ the following links.
 Install using npm or yarn.
 
 ```
-npm install @mytosbio/sensirion-hdlc
-yarn add @mytosbio/sensirion-hdlc
+npm install @mytosbio/kern-communications
+yarn add @mytosbio/kern-communications
 ```
 
 ### Working example
 
-To communicate with a sensor the interfaces port, connection and device are
-used. The port is responsible for sending a receiving data between the computer
-and sensor. The connection manages resending requests and checking that a full
-response is received. A device uses a connection to provide an API to the
-connected sensor.
-
-Here is an example for the SLF06 flow meter measuring the fluid volume which has
-passed through the sensor. In this example the sensor cable totalizer is used to
-collect the instantaneous flow measurements over a period of time. Then once
-1000ms has passed the totalizer value is read from the sensor.
+Include a basic example to connect with and configure a Kern balance.
 
 ```typescript
-import {
-  SerialPort,
-  RetryConnection,
-  FlowMeter,
-} from "@mytosbio/sensirion-hdlc";
-
-const measureInterval = 20;
-const sensorPath = "/dev/sensor";
-const sensorPort = new SerialPort(sensorPath, 115200);
-const sensorConnection = new RetryConnection(sensorPort);
-const sensorDevice = new FlowMeter(sensorConnection);
-
-const main = async () => {
-  await sensorPort.open();
-  await sensorDevice.init();
-  const productName = await sensorDevice.getProductName();
-  console.log("productName", productName);
-  await sensorDevice.startRecordingVolume(measureInterval);
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  const volume = await sensorDevice.stopRecordingVolume(measureInterval);
-  console.log("volume", volume);
-  await sensorPort.close();
-};
-
-main();
+// TODO: Add example of using kern-communications
 ```
 
 ## Development
