@@ -42,6 +42,10 @@ enum CommandRequest {
     Resend = 1,
 }
 
+enum CommandResponse {
+    ErroneousSyntax = "ES",
+}
+
 /**
  * Retry connection uses a port to make repeated attempts at communication
  */
